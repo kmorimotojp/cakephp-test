@@ -28,6 +28,7 @@ jobs:
       - run:
           name: Wait for MySQL DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run: chmod 777 ./bin/cake
       - run:
           name: Initialize Database
           command: bin/cake migrations migrate
