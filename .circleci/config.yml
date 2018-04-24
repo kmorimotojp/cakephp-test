@@ -21,7 +21,6 @@ jobs:
       - run:
           name: Wait for MySQL DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run: chmod 777 ./bin/cake
       - run:
           name: Initialize Database
           command: bin/cake migrations migrate
@@ -33,14 +32,7 @@ jobs:
           DEBUG: true
     working_directory: /var/www/html
     steps:
-      - restore_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
-      - checkout
       - run: composer install --dev --no-interaction
-      - save_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
-          paths:
-            - "/home/ubuntu/.composer/cache"
       - run:
           name: php code sniffer
           command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src/Controller ./tests
