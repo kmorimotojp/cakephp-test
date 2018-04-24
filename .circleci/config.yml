@@ -3,6 +3,12 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2
+  php:
+    version: 7.0.4
+  services:
+    - mysql
+  environment:
+    DEBUG: true
 jobs:
   build:
     docker:
